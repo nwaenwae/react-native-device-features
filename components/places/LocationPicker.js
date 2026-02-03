@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import OutlinedButton from "../ui/OutlinedButton";
 import {Colors} from "../../constants/colors";
 
-function LocationPicker() {
+function LocationPicker({onPickLocation}) {
   const navigation = useNavigation();
   const route = useRoute();
   const [pickedLocation, setPickedLocation] = useState();
@@ -21,6 +21,10 @@ function LocationPicker() {
       setPickedLocation(mapPickedLocation);
     }
   }, [route, isFocused]);
+
+  useEffect(() => {
+    onPickLocation(pickedLocation);
+  },[pickedLocation, onPickLocation]);
 
   async function verifyPermissions() {
     if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
