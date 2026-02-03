@@ -8,7 +8,7 @@ function ImagePicker() {
   const [pickedImage, setPickedImage] = useState()
   const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
 
-  async function verifyPermission() {
+  async function verifyPermissions() {
     if (cameraPermissionInformation.status === PermissionStatus.UNDETERMINED) {
       const permissionResponse = await requestPermission();
       return permissionResponse.granted;
@@ -21,7 +21,7 @@ function ImagePicker() {
   }
 
   async function takeImageHandler() {
-    const hasPermission = await verifyPermission();
+    const hasPermission = await verifyPermissions();
     if (!hasPermission) {
       return;
     }
